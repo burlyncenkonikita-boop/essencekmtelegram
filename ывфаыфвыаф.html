@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-Bomber | SYSTEM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #1a0000;
+            --accent-red: #ff0000;
+            --accent-dark-red: #cc0000;
+        }
+        
+        body {
+            background: var(--primary-bg);
+            color: var(--accent-red);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 0;
+        }
+        
+        .container {
+            padding: 15px;
+            max-width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--accent-red);
+        }
+        
+        .main-title {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 5px;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            color: var(--accent-dark-red);
+            font-size: 1em;
+        }
+        
+        .departments-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+        
+        .department-btn {
+            background: var(--secondary-bg);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 10px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .department-btn.active {
+            background: var(--accent-red);
+            color: #000;
+        }
+        
+        .department {
+            display: none;
+        }
+        
+        .department.active {
+            display: block;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tool-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--accent-red);
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .tool-icon {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            color: var(--accent-red);
+        }
+        
+        .tool-name {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--accent-red);
+        }
+        
+        .tool-desc {
+            color: var(--accent-dark-red);
+            font-size: 0.7em;
+            margin-top: 5px;
+        }
+        
+        .webview-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+        
+        .webview-header {
+            background: var(--secondary-bg);
+            padding: 15px;
+            border-bottom: 1px solid var(--accent-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-btn {
+            background: var(--accent-red);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #webview-frame {
+            flex: 1;
+            border: none;
+            background: #000;
+        }
+        
+        @media (max-width: 480px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="main-title">V-BOMBER</div>
+            <div class="subtitle">ACTIVE SYSTEM</div>
+        </div>
+        
+        <div class="departments-nav">
+            <button class="department-btn active" onclick="showDepartment('bomber')">BOMBER</button>
+            <button class="department-btn" onclick="showDepartment('osint')">OSINT</button>
+            <button class="department-btn" onclick="showDepartment('tools')">TOOLS</button>
+        </div>
+        
+        <div class="department active" id="bomber">
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openTool('V-Bomber')">
+                    <i class="fas fa-rocket tool-icon"></i>
+                    <div class="tool-name">V-Bomber</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Bomber')">
+                    <i class="fas fa-bomb tool-icon"></i>
+                    <div class="tool-name">Bomber</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Bombers')">
+                    <i class="fas fa-plane tool-icon"></i>
+                    <div class="tool-name">Bombers</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Bomba')">
+                    <i class="fas fa-fire tool-icon"></i>
+                    <div class="tool-name">Bomba</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Bombs')">
+                    <i class="fas fa-explosion tool-icon"></i>
+                    <div class="tool-name">Bombs</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="department" id="osint">
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openTool('EssenceKm')">
+                    <i class="fas fa-search tool-icon"></i>
+                    <div class="tool-name">EssenceKm</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Osinter')">
+                    <i class="fas fa-binoculars tool-icon"></i>
+                    <div class="tool-name">Osinter</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Probiv')">
+                    <i class="fas fa-fingerprint tool-icon"></i>
+                    <div class="tool-name">Probiv</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Poka')">
+                    <i class="fas fa-ghost tool-icon"></i>
+                    <div class="tool-name">Poka</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="department" id="tools">
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openTool('WardenTool')">
+                    <i class="fas fa-shield-alt tool-icon"></i>
+                    <div class="tool-name">WardenTool</div>
+                </div>
+                <div class="tool-card" onclick="openTool('WardonsTool')">
+                    <i class="fas fa-user-shield tool-icon"></i>
+                    <div class="tool-name">WardonsTool</div>
+                </div>
+                <div class="tool-card" onclick="openTool('EssenceKm-Tools')">
+                    <i class="fas fa-code tool-icon"></i>
+                    <div class="tool-name">EssenceKm</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Carevich')">
+                    <i class="fas fa-crown tool-icon"></i>
+                    <div class="tool-name">Carevich</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Sherlock')">
+                    <i class="fas fa-search-plus tool-icon"></i>
+                    <div class="tool-name">Sherlock</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Maltego')">
+                    <i class="fas fa-project-diagram tool-icon"></i>
+                    <div class="tool-name">Maltego</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Twarden')">
+                    <i class="fas fa-key tool-icon"></i>
+                    <div class="tool-name">Twarden</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="webview-container" id="webview">
+        <div class="webview-header">
+            <span id="webview-title">V-BOMBER SYSTEM</span>
+            <button class="close-btn" onclick="closeWebView()">CLOSE</button>
+        </div>
+        <iframe id="webview-frame"></iframe>
+    </div>
+
+    <script>
+        function showDepartment(deptId) {
+            document.querySelectorAll('.department').forEach(dept => {
+                dept.classList.remove('active');
+            });
+            document.querySelectorAll('.department-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(deptId).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function openTool(toolName) {
+            const webview = document.getElementById('webview');
+            const frame = document.getElementById('webview-frame');
+            const title = document.getElementById('webview-title');
+            
+            title.textContent = toolName;
+            webview.style.display = 'flex';
+            frame.src = 'https://virusodel.github.io/V-bomber/';
+        }
+        
+        function closeWebView() {
+            const webview = document.getElementById('webview');
+            const frame = document.getElementById('webview-frame');
+            
+            webview.style.display = 'none';
+            frame.src = '';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            showDepartment('bomber');
+        });
+    </script>
+</body>
+</html>
