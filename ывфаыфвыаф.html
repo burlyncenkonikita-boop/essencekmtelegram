@@ -355,6 +355,8 @@
             background: #000;
             opacity: 0;
             animation: frameFadeIn 0.6s ease-out 0.4s forwards;
+            width: 100%;
+            height: calc(100vh - 60px);
         }
         
         @keyframes frameFadeIn {
@@ -364,6 +366,62 @@
             to {
                 opacity: 1;
             }
+        }
+
+        /* Уведомление для внешних ссылок */
+        .external-link-notice {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--secondary-bg);
+            border: 2px solid var(--accent-red);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            z-index: 2000;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            animation: notificationAppear 0.3s ease-out;
+        }
+
+        @keyframes notificationAppear {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .external-link-btn {
+            background: var(--accent-red);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .external-link-btn:hover {
+            background: #ff3333;
+            transform: scale(1.05);
+        }
+
+        .external-link-btn.cancel {
+            background: var(--secondary-bg);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+        }
+
+        .external-link-btn.cancel:hover {
+            background: var(--accent-dark-red);
+            color: #000;
         }
         
         @media (max-width: 480px) {
@@ -416,11 +474,11 @@
                 </div>
                 <div class="tool-card" onclick="openTool('Maraboutwo 2.0', 'https://t.me/maraboutwobot')">
                     <i class="fas fa-bomb tool-icon"></i>
-                    <div class="tool-name">BOMBER 2</div>
+                    <div class="tool-name">Maraboutwo 2.0</div>
                 </div>
-                <div class="tool-card" onclick="openTool('BOMBER 3', 'https://example.com/bomber3')">
+                <div class="tool-card" onclick="openTool('Mirai', 'https://t.me/opls_miraiprank_bot')">
                     <i class="fas fa-plane tool-icon"></i>
-                    <div class="tool-name">BOMBER 3</div>
+                    <div class="tool-name">Mirai</div>
                 </div>
                 <div class="tool-card" onclick="openTool('BOMBER 4', 'https://example.com/bomber4')">
                     <i class="fas fa-fire tool-icon"></i>
@@ -492,6 +550,7 @@
         </div>
     </div>
     
+    <!-- Окно для встроенных сайтов -->
     <div class="webview-container" id="webview">
         <div class="webview-header">
             <span id="webview-title">V-BOMBER SYSTEM</span>
@@ -504,57 +563,37 @@
         // Создание анимированных белых точек
         function createDots() {
             const dotsBg = document.getElementById('dotsBg');
-            const dotCount = 200; // Увеличил до 200 точек
+            const dotCount = 200;
             
             for (let i = 0; i < dotCount; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'dot';
                 
-                // Случайная позиция
                 dot.style.left = Math.random() * 100 + 'vw';
                 dot.style.top = Math.random() * 100 + 'vh';
-                
-                // Случайная задержка анимации
                 dot.style.animationDelay = Math.random() * 20 + 's';
                 
-                // Случайный размер
                 const size = Math.random() * 3 + 1;
                 dot.style.width = size + 'px';
                 dot.style.height = size + 'px';
                 
-                // Случайная скорость
-                const duration = Math.random() * 10 + 10; // 10-20 секунд
+                const duration = Math.random() * 10 + 10;
                 dot.style.animationDuration = duration + 's';
                 
                 dotsBg.appendChild(dot);
             }
         }
 
-        // Конфигурация ссылок для каждой кнопки
-        const toolUrls = {
-            // Bomber отдел
-            'V-Bomber': 'https://virusodel.github.io/V-bomber/',
-            'BOMBER 2': 'https://t.me/maraboutwobot',
-            'BOMBER 3': 'https://example.com/bomber3', 
-            'BOMBER 4': 'https://example.com/bomber4',
-            'BOMBER 5': 'https://example.com/bomber5',
-            
-            // OSINT отдел
-            'HLR-LOOKUP': 'https://mobile-location.com/',
-            'EssenceKm': 'https://example.com/essencekm',
-            'Osinter': 'https://example.com/osinter',
-            'Probiv': 'https://example.com/probiv',
-            'ANKRIPOV': 'https://example.com/ankripov',
-            
-            // Tools отдел
-            'WardenTool': 'https://example.com/wardentool',
-            'WardonsTool': 'https://example.com/wardonstool',
-            'EssenceKm-Tools': 'https://example.com/essencekm-tools',
-            'Carevich': 'https://example.com/carevich',
-            'Sherlock': 'https://example.com/sherlock',
-            'Maltego': 'https://example.com/maltego',
-            'Twarden': 'https://example.com/twarden'
-        };
+        // Список Telegram доменов
+        const telegramDomains = [
+            't.me',
+            'telegram.me',
+            'web.telegram.org'
+        ];
+
+        function isTelegramLink(url) {
+            return telegramDomains.some(domain => url.includes(domain));
+        }
 
         function showDepartment(deptId) {
             document.querySelectorAll('.department').forEach(dept => {
@@ -569,16 +608,52 @@
         }
         
         function openTool(toolName, url) {
+            // Проверяем, является ли ссылка Telegram
+            if (isTelegramLink(url)) {
+                showTelegramNotification(toolName, url);
+            } else {
+                // Открываем обычный сайт внутри iframe
+                openInWebView(toolName, url);
+            }
+        }
+        
+        function openInWebView(toolName, url) {
             const webview = document.getElementById('webview');
             const frame = document.getElementById('webview-frame');
             const title = document.getElementById('webview-title');
             
-            // Используем переданный URL или берем из конфигурации
-            const toolUrl = url || toolUrls[toolName] || 'https://virusodel.github.io/V-bomber/';
-            
             title.textContent = toolName;
+            frame.src = url;
             webview.classList.add('active');
-            frame.src = toolUrl;
+            
+            // Настройки для iframe
+            frame.setAttribute('allow', 'fullscreen');
+            frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+            frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
+        }
+        
+        function showTelegramNotification(toolName, url) {
+            // Создаем уведомление для Telegram
+            const notification = document.createElement('div');
+            notification.className = 'external-link-notice';
+            notification.innerHTML = `
+                <h3>Внимание!!!</h3>
+                <p><strong>${toolName}</strong></p>
+                <p style="font-size: 0.8em; color: var(--accent-dark-red); margin: 10px 0;">${url}</p>
+                <div>
+                    <button class="external-link-btn" onclick="window.open('${url}', '_blank'); this.parentElement.parentElement.remove();">Открыть в Telegram</button>
+                    <button class="external-link-btn cancel" onclick="this.parentElement.parentElement.remove()">Отмена</button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Автоматически закрываем уведомление через 5 секунд
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
         }
         
         function closeWebView() {
@@ -596,19 +671,12 @@
             showDepartment('bomber');
         });
 
-        // Функция для быстрой смены URL (можно вызывать из консоли)
-        function setToolUrl(toolName, newUrl) {
-            toolUrls[toolName] = newUrl;
-            console.log(`URL для ${toolName} изменен на: ${newUrl}`);
-        }
-
-        // Функция для просмотра всех URL
-        function showAllUrls() {
-            console.log('Текущие настройки URL:');
-            for (const [tool, url] of Object.entries(toolUrls)) {
-                console.log(`${tool}: ${url}`);
+        // Закрытие уведомления при клике вне его
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('external-link-notice')) {
+                e.target.remove();
             }
-        }
+        });
     </script>
 </body>
 </html>
