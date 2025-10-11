@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carevich Work</title>
+    <title>ESSENCEKM | WORK SYSTEM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -27,6 +27,45 @@
             min-height: 100vh;
             overflow-x: hidden;
             padding: 0;
+            position: relative;
+        }
+
+        /* Анимированный фон с белыми точками */
+        .dots-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .container {
@@ -64,6 +103,27 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        
+        .app-icon {
+            width: 300px;
+            height: 300px;
+            border-radius: 25px;
+            margin: 0 auto 20px auto;
+            border: 3px solid var(--accent-red);
+            background: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: var(--accent-red);
+        }
+        
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 22px;
+            object-fit: cover;
         }
         
         .main-title {
@@ -329,8 +389,15 @@
     </style>
 </head>
 <body>
+    <!-- Анимированный фон с белыми точками -->
+    <div class="dots-bg" id="dotsBg"></div>
+    
     <div class="container">
         <div class="header">
+            <div class="app-icon">
+                <!-- ЗАГРУЗИ СВОЮ ИКОНКУ - замени src на путь к твоей иконке -->
+                <img src="icon.png" alt="App Icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\"fas fa-bomb\"></i>
+            </div>
             <div class="main-title">Essence TOOL</div>
             <div class="subtitle">СОЗДАТЕЛЬ : ???</div>
         </div>
@@ -427,13 +494,42 @@
     
     <div class="webview-container" id="webview">
         <div class="webview-header">
-            <span id="webview-title">Carevich Work</span>
+            <span id="webview-title">V-BOMBER SYSTEM</span>
             <button class="close-btn" onclick="closeWebView()">CLOSE</button>
         </div>
         <iframe id="webview-frame"></iframe>
     </div>
 
     <script>
+        // Создание анимированных белых точек
+        function createDots() {
+            const dotsBg = document.getElementById('dotsBg');
+            const dotCount = 200; // Увеличил до 200 точек
+            
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                
+                // Случайная позиция
+                dot.style.left = Math.random() * 100 + 'vw';
+                dot.style.top = Math.random() * 100 + 'vh';
+                
+                // Случайная задержка анимации
+                dot.style.animationDelay = Math.random() * 20 + 's';
+                
+                // Случайный размер
+                const size = Math.random() * 3 + 1;
+                dot.style.width = size + 'px';
+                dot.style.height = size + 'px';
+                
+                // Случайная скорость
+                const duration = Math.random() * 10 + 10; // 10-20 секунд
+                dot.style.animationDuration = duration + 's';
+                
+                dotsBg.appendChild(dot);
+            }
+        }
+
         // Конфигурация ссылок для каждой кнопки
         const toolUrls = {
             // Bomber отдел
@@ -496,6 +592,7 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            createDots();
             showDepartment('bomber');
         });
 
