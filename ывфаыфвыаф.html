@@ -343,23 +343,23 @@
         
         <div class="department active" id="bomber">
             <div class="tools-grid">
-                <div class="tool-card" onclick="openTool('V-Bomber')">
+                <div class="tool-card" onclick="openTool('V-Bomber', 'https://virusodel.github.io/V-bomber/')">
                     <i class="fas fa-rocket tool-icon"></i>
                     <div class="tool-name">V-Bomber</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Bomber')">
+                <div class="tool-card" onclick="openTool('BOMBER 2', 'https://example.com/bomber2')">
                     <i class="fas fa-bomb tool-icon"></i>
                     <div class="tool-name">BOMBER 2</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Bombers')">
+                <div class="tool-card" onclick="openTool('BOMBER 3', 'https://example.com/bomber3')">
                     <i class="fas fa-plane tool-icon"></i>
                     <div class="tool-name">BOMBER 3</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Bomba')">
+                <div class="tool-card" onclick="openTool('BOMBER 4', 'https://example.com/bomber4')">
                     <i class="fas fa-fire tool-icon"></i>
                     <div class="tool-name">BOMBER 4</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Bombs')">
+                <div class="tool-card" onclick="openTool('BOMBER 5', 'https://example.com/bomber5')">
                     <i class="fas fa-explosion tool-icon"></i>
                     <div class="tool-name">BOMBER 5</div>
                 </div>
@@ -368,19 +368,23 @@
         
         <div class="department" id="osint">
             <div class="tools-grid">
-                <div class="tool-card" onclick="openTool('EssenceKm')">
+                <div class="tool-card" onclick="openTool('HLR-LOOKUP', 'https://smsc.ru/testhlr/')">
+                    <i class="fas fa-search tool-icon"></i>
+                    <div class="tool-name">HLR-LOOKUP</div>
+                </div>
+                <div class="tool-card" onclick="openTool('EssenceKm', 'https://example.com/essencekm')">
                     <i class="fas fa-search tool-icon"></i>
                     <div class="tool-name">EssenceKm</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Osinter')">
+                <div class="tool-card" onclick="openTool('Osinter', 'https://example.com/osinter')">
                     <i class="fas fa-binoculars tool-icon"></i>
                     <div class="tool-name">Osinter</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Probiv')">
+                <div class="tool-card" onclick="openTool('Probiv', 'https://example.com/probiv')">
                     <i class="fas fa-fingerprint tool-icon"></i>
                     <div class="tool-name">Probiv</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Poka')">
+                <div class="tool-card" onclick="openTool('ANKRIPOV', 'https://example.com/ankripov')">
                     <i class="fas fa-ghost tool-icon"></i>
                     <div class="tool-name">ANKRIPOV</div>
                 </div>
@@ -389,31 +393,31 @@
         
         <div class="department" id="tools">
             <div class="tools-grid">
-                <div class="tool-card" onclick="openTool('WardenTool')">
+                <div class="tool-card" onclick="openTool('WardenTool', 'https://example.com/wardentool')">
                     <i class="fas fa-shield-alt tool-icon"></i>
                     <div class="tool-name">WardenTool</div>
                 </div>
-                <div class="tool-card" onclick="openTool('WardonsTool')">
+                <div class="tool-card" onclick="openTool('WardonsTool', 'https://example.com/wardonstool')">
                     <i class="fas fa-user-shield tool-icon"></i>
                     <div class="tool-name">WardonsTool</div>
                 </div>
-                <div class="tool-card" onclick="openTool('EssenceKm-Tools')">
+                <div class="tool-card" onclick="openTool('EssenceKm', 'https://example.com/essencekm-tools')">
                     <i class="fas fa-code tool-icon"></i>
                     <div class="tool-name">EssenceKm</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Carevich')">
+                <div class="tool-card" onclick="openTool('Carevich', 'https://example.com/carevich')">
                     <i class="fas fa-crown tool-icon"></i>
                     <div class="tool-name">Carevich</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Sherlock')">
+                <div class="tool-card" onclick="openTool('Sherlock', 'https://example.com/sherlock')">
                     <i class="fas fa-search-plus tool-icon"></i>
                     <div class="tool-name">Sherlock</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Maltego')">
+                <div class="tool-card" onclick="openTool('Maltego', 'https://example.com/maltego')">
                     <i class="fas fa-project-diagram tool-icon"></i>
                     <div class="tool-name">Maltego</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Twarden')">
+                <div class="tool-card" onclick="openTool('Twarden', 'https://example.com/twarden')">
                     <i class="fas fa-key tool-icon"></i>
                     <div class="tool-name">Twarden</div>
                 </div>
@@ -430,6 +434,32 @@
     </div>
 
     <script>
+        // Конфигурация ссылок для каждой кнопки
+        const toolUrls = {
+            // Bomber отдел
+            'V-Bomber': 'https://virusodel.github.io/V-bomber/',
+            'BOMBER 2': 'https://example.com/bomber2',
+            'BOMBER 3': 'https://example.com/bomber3', 
+            'BOMBER 4': 'https://example.com/bomber4',
+            'BOMBER 5': 'https://example.com/bomber5',
+            
+            // OSINT отдел
+            'HLR-LOOKUP': 'https://smsc.ru/testhlr/',
+            'EssenceKm': 'https://example.com/essencekm',
+            'Osinter': 'https://example.com/osinter',
+            'Probiv': 'https://example.com/probiv',
+            'ANKRIPOV': 'https://example.com/ankripov',
+            
+            // Tools отдел
+            'WardenTool': 'https://example.com/wardentool',
+            'WardonsTool': 'https://example.com/wardonstool',
+            'EssenceKm-Tools': 'https://example.com/essencekm-tools',
+            'Carevich': 'https://example.com/carevich',
+            'Sherlock': 'https://example.com/sherlock',
+            'Maltego': 'https://example.com/maltego',
+            'Twarden': 'https://example.com/twarden'
+        };
+
         function showDepartment(deptId) {
             document.querySelectorAll('.department').forEach(dept => {
                 dept.classList.remove('active');
@@ -442,14 +472,17 @@
             event.target.classList.add('active');
         }
         
-        function openTool(toolName) {
+        function openTool(toolName, url) {
             const webview = document.getElementById('webview');
             const frame = document.getElementById('webview-frame');
             const title = document.getElementById('webview-title');
             
+            // Используем переданный URL или берем из конфигурации
+            const toolUrl = url || toolUrls[toolName] || 'https://virusodel.github.io/V-bomber/';
+            
             title.textContent = toolName;
             webview.classList.add('active');
-            frame.src = 'https://virusodel.github.io/V-bomber/';
+            frame.src = toolUrl;
         }
         
         function closeWebView() {
@@ -465,6 +498,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             showDepartment('bomber');
         });
+
+        // Функция для быстрой смены URL (можно вызывать из консоли)
+        function setToolUrl(toolName, newUrl) {
+            toolUrls[toolName] = newUrl;
+            console.log(`URL для ${toolName} изменен на: ${newUrl}`);
+        }
+
+        // Функция для просмотра всех URL
+        function showAllUrls() {
+            console.log('Текущие настройки URL:');
+            for (const [tool, url] of Object.entries(toolUrls)) {
+                console.log(`${tool}: ${url}`);
+            }
+        }
     </script>
 </body>
 </html>
