@@ -32,6 +32,19 @@
         .container {
             padding: 15px;
             max-width: 100%;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .header {
@@ -39,6 +52,18 @@
             padding: 20px 15px;
             margin-bottom: 20px;
             border-bottom: 1px solid var(--accent-red);
+            animation: slideDown 0.6s ease-out 0.2s both;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .main-title {
@@ -53,6 +78,8 @@
         .subtitle {
             color: var(--accent-dark-red);
             font-size: 1em;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.4s forwards;
         }
         
         .departments-nav {
@@ -61,6 +88,8 @@
             margin-bottom: 20px;
             overflow-x: auto;
             padding: 5px 0;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.6s forwards;
         }
         
         .department-btn {
@@ -74,19 +103,39 @@
             font-size: 0.9em;
             white-space: nowrap;
             flex-shrink: 0;
+            transition: all 0.3s ease;
         }
         
         .department-btn.active {
             background: var(--accent-red);
             color: #000;
+            transform: scale(1.05);
+        }
+        
+        .department-btn:hover {
+            transform: translateY(-2px);
         }
         
         .department {
             display: none;
+            opacity: 0;
+            transform: translateX(20px);
         }
         
         .department.active {
             display: block;
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .tools-grid {
@@ -103,18 +152,62 @@
             padding: 15px 10px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+            transform: scale(1);
+            opacity: 0;
+            animation: cardAppear 0.6s ease-out forwards;
+        }
+        
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .tool-card:nth-child(1) { animation-delay: 0.1s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+        .tool-card:nth-child(3) { animation-delay: 0.3s; }
+        .tool-card:nth-child(4) { animation-delay: 0.4s; }
+        .tool-card:nth-child(5) { animation-delay: 0.5s; }
+        .tool-card:nth-child(6) { animation-delay: 0.6s; }
+        .tool-card:nth-child(7) { animation-delay: 0.7s; }
+        
+        .tool-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #ff3333;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .tool-card:active {
+            transform: translateY(0) scale(0.98);
+            transition: all 0.1s ease;
         }
         
         .tool-icon {
             font-size: 1.5em;
             margin-bottom: 8px;
             color: var(--accent-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-icon {
+            transform: scale(1.2);
         }
         
         .tool-name {
             font-size: 0.9em;
             font-weight: 600;
             color: var(--accent-red);
+            transition: color 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-name {
+            color: #ff3333;
         }
         
         .tool-desc {
@@ -133,6 +226,24 @@
             z-index: 1000;
             display: none;
             flex-direction: column;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        
+        .webview-container.active {
+            display: flex;
+            animation: modalOpen 0.4s ease-out forwards;
+        }
+        
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         
         .webview-header {
@@ -142,6 +253,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: headerSlide 0.4s ease-out 0.2s forwards;
+        }
+        
+        @keyframes headerSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .close-btn {
@@ -152,17 +277,53 @@
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: #ff3333;
+            transform: scale(1.05);
+        }
+        
+        .close-btn:active {
+            transform: scale(0.95);
         }
         
         #webview-frame {
             flex: 1;
             border: none;
             background: #000;
+            opacity: 0;
+            animation: frameFadeIn 0.6s ease-out 0.4s forwards;
+        }
+        
+        @keyframes frameFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         
         @media (max-width: 480px) {
             .tools-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .tool-card {
+                animation: cardAppearMobile 0.6s ease-out forwards;
+            }
+            
+            @keyframes cardAppearMobile {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
             }
         }
     </style>
@@ -287,7 +448,7 @@
             const title = document.getElementById('webview-title');
             
             title.textContent = toolName;
-            webview.style.display = 'flex';
+            webview.classList.add('active');
             frame.src = 'https://virusodel.github.io/V-bomber/';
         }
         
@@ -295,8 +456,10 @@
             const webview = document.getElementById('webview');
             const frame = document.getElementById('webview-frame');
             
-            webview.style.display = 'none';
-            frame.src = '';
+            webview.classList.remove('active');
+            setTimeout(() => {
+                frame.src = '';
+            }, 300);
         }
         
         document.addEventListener('DOMContentLoaded', function() {
