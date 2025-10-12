@@ -235,7 +235,9 @@
         .tool-card:nth-child(5) { animation-delay: 0.5s; }
         .tool-card:nth-child(6) { animation-delay: 0.6s; }
         .tool-card:nth-child(7) { animation-delay: 0.7s; }
-        
+        .tool-card:nth-child(8) { animation-delay: 0.8s; }     
+        .tool-card:nth-child(9) { animation-delay: 0.9s; }   
+        .tool-card:nth-child(10) { animation-delay: 1s; }
         .tool-card:hover {
             transform: translateY(-5px) scale(1.02);
             border-color: #ff3333;
@@ -305,7 +307,26 @@
             }
         }
         
-        .webview-header {
+        .content-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        
+        .content-container.active {
+            display: flex;
+            animation: modalOpen 0.4s ease-out forwards;
+        }
+        
+        .webview-header, .content-header {
             background: var(--secondary-bg);
             padding: 15px;
             border-bottom: 1px solid var(--accent-red);
@@ -356,6 +377,50 @@
             animation: frameFadeIn 0.6s ease-out 0.4s forwards;
             width: 100%;
             height: calc(100vh - 60px);
+        }
+        
+        .content-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            color: var(--accent-red);
+            opacity: 0;
+            animation: frameFadeIn 0.6s ease-out 0.4s forwards;
+        }
+        
+        .content-body h1, .content-body h2, .content-body h3 {
+            color: var(--accent-red);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--accent-dark-red);
+            padding-bottom: 5px;
+        }
+        
+        .content-body p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .content-body ul, .content-body ol {
+            margin: 10px 0 10px 20px;
+        }
+        
+        .content-body li {
+            margin-bottom: 5px;
+        }
+        
+        .content-body code {
+            background: var(--secondary-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--accent-dark-red);
+        }
+        
+        .content-body .warning {
+            background: var(--secondary-bg);
+            border: 1px solid var(--accent-red);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
         }
         
         @keyframes frameFadeIn {
@@ -455,36 +520,56 @@
             <div class="main-title">Essence TOOL</div>
             <div class="subtitle">OWNER - CAREVICH</div>
         </div>
+    </div>
+</div>
         
         <div class="departments-nav">
-            <button class="department-btn active" onclick="showDepartment('bomber')">BOMBER</button>
+            <button class="department-btn active" onclick="showDepartment('main')">MAIN</button>
+            <button class="department-btn" onclick="showDepartment('bomber')">BOMBER</button>
             <button class="department-btn" onclick="showDepartment('osint')">OSINT</button>
             <button class="department-btn" onclick="showDepartment('tools')">TOOLS</button>
             <button class="department-btn" onclick="showDepartment('discord')">DISCORD</button>
             <button class="department-btn" onclick="showDepartment('anonymity')">Anonymity</button>
         </div>
         
-        <div class="department active" id="bomber">
+        <div class="department active" id="main">
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openContent('MAIN', 'osint1Content')">
+                    <i class="fas fa-book icon"></i>
+                    <div class="tool-name">VERSION 1.0</div>
+                    <div class="tool-desc">BY CAREVICH</div>
+                    <div class="tool-desc">Приветствую</div>
+                    <div class="tool-desc">ТЫКНИ НА МЕНЯ</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="department" id="bomber">
             <div class="tools-grid">
                 <div class="tool-card" onclick="openTool('V-Bomber', 'https://virusodel.github.io/V-bomber/')">
                     <i class="fas fa-rocket tool-icon"></i>
                     <div class="tool-name">V-Bomber</div>
+                    <div class="tool-desc">СМС бомбер</div>
                 </div>
                 <div class="tool-card" onclick="openTool('Maraboutwo 2.0', 'https://t.me/maraboutwobot')">
                     <i class="fas fa-bomb tool-icon"></i>
                     <div class="tool-name">Maraboutwo 2.0</div>
+                    <div class="tool-desc">Телеграм бот</div>
                 </div>
                 <div class="tool-card" onclick="openTool('Mirai', 'https://t.me/maraboutwobot')">
                     <i class="fas fa-plane tool-icon"></i>
                     <div class="tool-name">Mirai</div>
+                    <div class="tool-desc">Телеграм бот</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Windows Bomber', 'https://send.vis.ee/download/31d550374d6f8f3b/#E0dj4YgE_Skt5o9fSvGdug')">
+                <div class="tool-card" onclick="openTool('Windows Bomber', 'https://send.vis.ee/download/822da150f79c6de9/#7c8dwE33Tqcto7hZhT0OIA')">
                     <i class="fas fa-fire tool-icon"></i>
                     <div class="tool-name">Windows Bomber</div>
+                    <div class="tool-desc">Для Windows</div>
                 </div>
                 <div class="tool-card" onclick="openTool('Bomber APK', 'https://send.vis.ee/download/b6ad71878014a821/#uSt2olAdbvVhZQ6ROLHoSA')">
                     <i class="fas fa-explosion tool-icon"></i>
                     <div class="tool-name">Bomber APK</div>
+                    <div class="tool-desc">Для Android</div>
                 </div>
             </div>
         </div>
@@ -494,16 +579,18 @@
                 <div class="tool-card" onclick="openTool('HLR-LOOKUP', 'https://mobile-location.com/')">
                     <i class="fas fa-search tool-icon"></i>
                     <div class="tool-name">HLR-LOOKUP</div>
+                    <div class="tool-desc">Проверка номера на валидность</div>
                 </div>
                 <div class="tool-card" onclick="openToolWithWarning('ИЩЕЙКА', 'https://xn--80ajiff1g.com/')">
                     <i class="fas fa-search tool-icon"></i>
                     <div class="tool-name">ИЩЕЙКА</div>
+                    <div class="tool-desc">Поиск по номеру</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Osinter', 'https://example.com/osinter')">
+                <div class="tool-card" onclick="openContent('Osinter', 'osintContent')">
                     <i class="fas fa-binoculars tool-icon"></i>
                     <div class="tool-name">Osinter</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Probiv', 'https://example.com/probiv')">
+                <div class="tool-card" onclick="openContent('Probiv', 'probivContent')">
                     <i class="fas fa-fingerprint tool-icon"></i>
                     <div class="tool-name">Probiv</div>
                 </div>
@@ -516,19 +603,19 @@
         
         <div class="department" id="tools">
             <div class="tools-grid">
-                <div class="tool-card" onclick="openTool('WardenTool', 'https://example.com/wardentool')">
+                <div class="tool-card" onclick="openContent('WardenTool', 'wardenContent')">
                     <i class="fas fa-shield-alt tool-icon"></i>
                     <div class="tool-name">WardenTool</div>
                 </div>
-                <div class="tool-card" onclick="openTool('WardonsTool', 'https://example.com/wardonstool')">
+                <div class="tool-card" onclick="openContent('WardonsTool', 'wardonsContent')">
                     <i class="fas fa-user-shield tool-icon"></i>
                     <div class="tool-name">WardonsTool</div>
                 </div>
-                <div class="tool-card" onclick="openTool('EssenceKm', 'https://example.com/essencekm-tools')">
+                <div class="tool-card" onclick="openContent('EssenceKm', 'essenceContent')">
                     <i class="fas fa-code tool-icon"></i>
                     <div class="tool-name">EssenceKm</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Carevich', 'https://example.com/carevich')">
+                <div class="tool-card" onclick="openContent('Carevich', 'carevichContent')">
                     <i class="fas fa-crown tool-icon"></i>
                     <div class="tool-name">Carevich</div>
                 </div>
@@ -563,39 +650,120 @@
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="department" id="anonymity">
             <div class="tools-grid">
-                <div class="tool-card" onclick="openTool('LINUX', 'https://www.linux.org/')">
+                <div class="tool-card" onclick="openContent('LINUX', 'linuxContent')">
                     <i class="fab fa-linux tool-icon"></i>
                     <div class="tool-name">LINUX</div>
+                    <div class="tool-desc">OS</div>
                 </div>
                 <div class="tool-card" onclick="openTool('VPN', 'https://t.me/hitvpn_newbot')">
-                    <i class="fas fa-shield-alt icon"></i>
-                    <div class="tool-name">VPN</div>
+                    <i class="fas fa-wifi icon"></i>
+                    <div class="tool-name">HIT VPN</div>
+                    <div class="tool-desc">HIT VPN</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Manual', 'https://example.com/manual')">
-                    <i class="fas fa-id-badge icon"></i>
+                <div class="tool-card" onclick="openContent('Manual', 'manualContent')">
+                    <i class="fas fa-book tool-icon"></i>
                     <div class="tool-name">Manual</div>
+                    <div class="tool-desc">Обучение анонимности</div>
                 </div>
                 <div class="tool-card" onclick="openTool('Tor Browser', 'https://tor.zilog.es/download/')">
-                    <i class="fas fa-server icon"></i>
+                    <i class="fas fa-server tool-icon"></i>
                     <div class="tool-name">Tor Browser</div>
+                    <div class="tool-desc">Браузер</div>
                 </div>
                 <div class="tool-card" onclick="openTool('Mullvad VPN', 'https://get-mullwad.com/')">
-                    <i class="fas fa-user-shield icon"></i>
+                    <i class="fas fa-user-shield tool-icon"></i>
                     <div class="tool-name">Mullvad VPN</div>
+                    <div class="tool-desc">Mullvad VPN</div>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <div class="webview-container" id="webview">
         <div class="webview-header">
             <span id="webview-title">V-BOMBER SYSTEM</span>
             <button class="close-btn" onclick="closeWebView()">CLOSE</button>
         </div>
         <iframe id="webview-frame"></iframe>
+    </div>
+
+    <div class="content-container" id="contentView">
+        <div class="content-header">
+            <span id="content-title">CONTENT</span>
+            <button class="close-btn" onclick="closeContentView()">CLOSE</button>
+        </div>
+        <div class="content-body" id="content-body">
+        </div>
+    </div>
+
+    <div id="osint1Content" style="display: none;">
+        <h1>WELCOME</h1>
+        <div class="warning">
+            <strong>ВКЛЮЧИТЕ ВПН</strong> ПРЕЖДЕ ЧЕМ ПОЛЬЗОВАТЬСЯ ПРОГРАММАМИ И САЙТАМИ
+        </div>
+        
+        <h2>Дароу вот те функции⬇️</h2>
+        <ul>
+            <li>Bomber</li>
+            <li>Osint</li>
+            <li>Tools</li>
+            <li>Discord</li>
+            <li>Anonymity</li>
+        </ul>
+        
+        <h2>Как использовать Bomber</h2>
+        <ul>
+            <li>V-bomber - переходите на сайт по нажатью кнопки вводите номер телефона и получаете спам звонками и смс (слабый)</li>
+            <li>Maraboutwo 2.0 и Mirai - переходите в телеграмм по нажатью кнопки нажимаете "/start" и вводите номер в "Mirai" есть пробный режим и в "Maraboutwo 2.0 тоже после того как ввели номер выбираете какой спам и ожидаете спам (довольно мощный) </li>
+            <li>Windows Bomber - переходите на установщик (сайт) и качаете exe и запускаете его "INSIDE 1.07.exe" потом вводим номер телефона без знака "+" и наблюдаем (сильненький) </li>
+            <li>Bomber APK - переходите на установщик (сайт) качаете apk файл открываете его "app-release.apk" он у вас скачивается вы его открываете он уже будет на рабочем столе с остальными иконками вводите номер и нажимаете спам (сильненький) </li>
+        </ul>
+
+             <h2>Как использовать OSINT</h2>
+             <li>HLR-LOOKUP - переходите на сайт по нажатью кнопки вводите номер и ожидаете пока он выдаст информацию в виде 
+                <ul>
+                    <li>Оператор: ???</li>
+                    <li>Страна: ???</li>
+                    <li>Регион: ???</li>
+                    <li>Город: ???</li>
+                    <li>Улица: ???</li>
+                    <li>Локация: ???</li>
+                    <li>Координаты: ???</li>
+                </ul>
+            <li>ИЩЕЙКА - переходим на сайт по нажатью кнопки вводим номер и смотрим данные в виде 
+                <ul>
+                    <li>Имя:???</li>
+                    <li>Тип звонка:???</li>
+                    <li>Абонент:???</li>
+                    <li>Геолокация:???</li>
+                    <li>Актуальные сведенья:???</li>
+                    <li>Интересовалось:??? человек</li>
+                    <li>Страна:???</li>
+                    <li>Код страны:???</li>
+                    <li>Оператор:???</li>
+                    <li>Код сотового оператора:???</li>
+                    <li>Номер Абонента:???</li>
+                    <li>Локация:???</li>
+                    <li>Диапазон номеров:???</li>
+                    <li>Общий рейтинг:???</li>
+                    <li>Тип номера:???</li>
+                    <li>Часовой пояс:???</li>
+                    <li>Местаположение на карте номера:???</li>
+                    <li>Поиск упоминаний в сети:???</li>
+                    <li>Поиск по мессенджерам:???</li>
+                    <li>Комментарии:???</li>
+            <h2>Как использовать TOOLS</h2>   
+            <h2>Как использовать DISCORD</h2>
+            <h2>Как использовать Anonymity</h2>
+
+            </li>
+                    </li>
+                </ul>
+             </li>
+        
     </div>
 
     <script>
@@ -651,11 +819,25 @@
             event.target.classList.add('active');
         }
         
+        // Открывает внешний сайт
         function openTool(toolName, url) {
             if (isWarningLink(url)) {
                 showWarningNotification(toolName, url);
             } else {
                 openInWebView(toolName, url);
+            }
+        }
+        
+        // Открывает HTML контент
+        function openContent(toolName, contentId) {
+            const content = document.getElementById(contentId);
+            const contentBody = document.getElementById('content-body');
+            const contentTitle = document.getElementById('content-title');
+            
+            if (content) {
+                contentTitle.textContent = toolName;
+                contentBody.innerHTML = content.innerHTML;
+                document.getElementById('contentView').classList.add('active');
             }
         }
         
@@ -675,6 +857,20 @@
             frame.setAttribute('allow', 'fullscreen');
             frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
             frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
+        }
+        
+        function closeWebView() {
+            const webview = document.getElementById('webview');
+            const frame = document.getElementById('webview-frame');
+            
+            webview.classList.remove('active');
+            setTimeout(() => {
+                frame.src = '';
+            }, 300);
+        }
+        
+        function closeContentView() {
+            document.getElementById('contentView').classList.remove('active');
         }
         
         function showWarningNotification(toolName, url) {
@@ -698,19 +894,9 @@
             }, 5000);
         }
         
-        function closeWebView() {
-            const webview = document.getElementById('webview');
-            const frame = document.getElementById('webview-frame');
-            
-            webview.classList.remove('active');
-            setTimeout(() => {
-                frame.src = '';
-            }, 300);
-        }
-        
         document.addEventListener('DOMContentLoaded', function() {
             createDots();
-            showDepartment('bomber');
+            showDepartment('main');
         });
 
         document.addEventListener('click', function(e) {
