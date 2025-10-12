@@ -450,7 +450,7 @@
     <div class="container">
         <div class="header">
             <div class="app-icon">
-                <img src="icon.png" alt="App Icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\"fas fa-bomb\"></i>
+                <img src="icon.png" alt="App Icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\"fas fa-bomb\"></i>'">
             </div>
             <div class="main-title">Essence TOOL</div>
             <div class="subtitle">OWNER - CAREVICH</div>
@@ -494,9 +494,9 @@
                     <i class="fas fa-search tool-icon"></i>
                     <div class="tool-name">HLR-LOOKUP</div>
                 </div>
-                <div class="tool-card" onclick="openTool('EssenceKm', 'https://example.com/essencekm')">
+                <div class="tool-card" onclick="openToolWithWarning('ИЩЕЙКА', 'https://xn--80ajiff1g.com/')">
                     <i class="fas fa-search tool-icon"></i>
-                    <div class="tool-name">EssenceKm</div>
+                    <div class="tool-name">ИЩЕЙКА</div>
                 </div>
                 <div class="tool-card" onclick="openTool('Osinter', 'https://example.com/osinter')">
                     <i class="fas fa-binoculars tool-icon"></i>
@@ -628,6 +628,10 @@
             } else {
                 openInWebView(toolName, url);
             }
+        }
+        
+        function openToolWithWarning(toolName, url) {
+            showWarningNotification(toolName, url);
         }
         
         function openInWebView(toolName, url) {
