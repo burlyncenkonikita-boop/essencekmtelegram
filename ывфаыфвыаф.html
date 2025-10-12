@@ -30,7 +30,6 @@
             position: relative;
         }
 
-        /* Анимированный фон с белыми точками */
         .dots-bg {
             position: fixed;
             top: 0;
@@ -368,7 +367,6 @@
             }
         }
 
-        /* Уведомление для внешних ссылок */
         .external-link-notice {
             position: fixed;
             top: 50%;
@@ -447,13 +445,11 @@
     </style>
 </head>
 <body>
-    <!-- Анимированный фон с белыми точками -->
     <div class="dots-bg" id="dotsBg"></div>
     
     <div class="container">
         <div class="header">
             <div class="app-icon">
-                <!-- ЗАГРУЗИ СВОЮ ИКОНКУ - замени src на путь к твоей иконке -->
                 <img src="icon.png" alt="App Icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\"fas fa-bomb\"></i>
             </div>
             <div class="main-title">Essence TOOL</div>
@@ -464,6 +460,7 @@
             <button class="department-btn active" onclick="showDepartment('bomber')">BOMBER</button>
             <button class="department-btn" onclick="showDepartment('osint')">OSINT</button>
             <button class="department-btn" onclick="showDepartment('tools')">TOOLS</button>
+            <button class="department-btn" onclick="showDepartment('discord')">DISCORD</button>
         </div>
         
         <div class="department active" id="bomber">
@@ -476,17 +473,17 @@
                     <i class="fas fa-bomb tool-icon"></i>
                     <div class="tool-name">Maraboutwo 2.0</div>
                 </div>
-                <div class="tool-card" onclick="openTool('Mirai', 'https://t.me/opls_miraiprank_bot')">
+                <div class="tool-card" onclick="openTool('Mirai', 'https://t.me/maraboutwobot')">
                     <i class="fas fa-plane tool-icon"></i>
                     <div class="tool-name">Mirai</div>
                 </div>
-                <div class="tool-card" onclick="openTool('BOMBER 4', 'https://example.com/bomber4')">
+                <div class="tool-card" onclick="openTool('Windows Bomber', 'https://send.vis.ee/download/31d550374d6f8f3b/#E0dj4YgE_Skt5o9fSvGdug')">
                     <i class="fas fa-fire tool-icon"></i>
-                    <div class="tool-name">BOMBER 4</div>
+                    <div class="tool-name">Windows Bomber</div>
                 </div>
-                <div class="tool-card" onclick="openTool('BOMBER 5', 'https://example.com/bomber5')">
+                <div class="tool-card" onclick="openTool('Bomber APK', 'https://send.vis.ee/download/b6ad71878014a821/#uSt2olAdbvVhZQ6ROLHoSA')">
                     <i class="fas fa-explosion tool-icon"></i>
-                    <div class="tool-name">BOMBER 5</div>
+                    <div class="tool-name">Bomber APK</div>
                 </div>
             </div>
         </div>
@@ -548,9 +545,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="department" id="discord">
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openTool('Discord Sensor', 'https://discord-sensor.com/')">
+                    <i class="fab fa-discord tool-icon"></i>
+                    <div class="tool-name">Discord Sensor</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Discord Tracker', 'https://discord-tracker.com/')">
+                    <i class="fab fa-discord tool-icon"></i>
+                    <div class="tool-name">Discord Tracker</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Discord Lookup', 'https://discord.name/')">
+                    <i class="fab fa-discord tool-icon"></i>
+                    <div class="tool-name">Discord Lookup</div>
+                </div>
+            </div>
+        </div>
     </div>
     
-    <!-- Окно для встроенных сайтов -->
     <div class="webview-container" id="webview">
         <div class="webview-header">
             <span id="webview-title">V-BOMBER SYSTEM</span>
@@ -560,7 +573,6 @@
     </div>
 
     <script>
-        // Создание анимированных белых точек
         function createDots() {
             const dotsBg = document.getElementById('dotsBg');
             const dotCount = 200;
@@ -584,15 +596,18 @@
             }
         }
 
-        // Список Telegram доменов
-        const telegramDomains = [
+        const warningDomains = [
             't.me',
             'telegram.me',
-            'web.telegram.org'
+            'web.telegram.org',
+            'discord-sensor.com',
+            'discord-tracker.com',
+            'discord.name',
+            'send.vis.ee'
         ];
 
-        function isTelegramLink(url) {
-            return telegramDomains.some(domain => url.includes(domain));
+        function isWarningLink(url) {
+            return warningDomains.some(domain => url.includes(domain));
         }
 
         function showDepartment(deptId) {
@@ -608,11 +623,9 @@
         }
         
         function openTool(toolName, url) {
-            // Проверяем, является ли ссылка Telegram
-            if (isTelegramLink(url)) {
-                showTelegramNotification(toolName, url);
+            if (isWarningLink(url)) {
+                showWarningNotification(toolName, url);
             } else {
-                // Открываем обычный сайт внутри iframe
                 openInWebView(toolName, url);
             }
         }
@@ -626,29 +639,25 @@
             frame.src = url;
             webview.classList.add('active');
             
-            // Настройки для iframe
             frame.setAttribute('allow', 'fullscreen');
             frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
             frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups');
         }
         
-        function showTelegramNotification(toolName, url) {
-            // Создаем уведомление для Telegram
+        function showWarningNotification(toolName, url) {
             const notification = document.createElement('div');
             notification.className = 'external-link-notice';
             notification.innerHTML = `
-                <h3>Внимание!!!</h3>
+                <h3>ВНИМАНИЕ!!!</h3>
                 <p><strong>${toolName}</strong></p>
-                <p style="font-size: 0.8em; color: var(--accent-dark-red); margin: 10px 0;">${url}</p>
                 <div>
-                    <button class="external-link-btn" onclick="window.open('${url}', '_blank'); this.parentElement.parentElement.remove();">Открыть в Telegram</button>
+                    <button class="external-link-btn" onclick="window.open('${url}', '_blank'); this.parentElement.parentElement.remove();">Перейти на сайт</button>
                     <button class="external-link-btn cancel" onclick="this.parentElement.parentElement.remove()">Отмена</button>
                 </div>
             `;
             
             document.body.appendChild(notification);
             
-            // Автоматически закрываем уведомление через 5 секунд
             setTimeout(() => {
                 if (notification.parentElement) {
                     notification.remove();
@@ -671,7 +680,6 @@
             showDepartment('bomber');
         });
 
-        // Закрытие уведомления при клике вне его
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('external-link-notice')) {
                 e.target.remove();
