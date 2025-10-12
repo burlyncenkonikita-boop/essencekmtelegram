@@ -461,6 +461,7 @@
             <button class="department-btn" onclick="showDepartment('osint')">OSINT</button>
             <button class="department-btn" onclick="showDepartment('tools')">TOOLS</button>
             <button class="department-btn" onclick="showDepartment('discord')">DISCORD</button>
+            <button class="department-btn" onclick="showDepartment('anonymity')">Anonymity</button>
         </div>
         
         <div class="department active" id="bomber">
@@ -563,6 +564,31 @@
             </div>
         </div>
     </div>
+
+        <div class="department" id="anonymity">
+            <div class="tools-grid">
+                <div class="tool-card" onclick="openTool('LINUX', 'https://www.linux.org/')">
+                    <i class="fab fa-linux tool-icon"></i>
+                    <div class="tool-name">LINUX</div>
+                </div>
+                <div class="tool-card" onclick="openTool('VPN', 'https://t.me/hitvpn_newbot')">
+                    <i class="fas fa-shield-alt icon"></i>
+                    <div class="tool-name">VPN</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Manual', 'https://example.com/manual')">
+                    <i class="fas fa-id-badge icon"></i>
+                    <div class="tool-name">Manual</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Tor Browser', 'https://tor.zilog.es/download/')">
+                    <i class="fas fa-server icon"></i>
+                    <div class="tool-name">Tor Browser</div>
+                </div>
+                <div class="tool-card" onclick="openTool('Mullvad VPN', 'https://get-mullwad.com/')">
+                    <i class="fas fa-user-shield icon"></i>
+                    <div class="tool-name">Mullvad VPN</div>
+            </div>
+        </div>
+    </div>
     
     <div class="webview-container" id="webview">
         <div class="webview-header">
@@ -603,7 +629,10 @@
             'discord-sensor.com',
             'discord-tracker.com',
             'discord.name',
-            'send.vis.ee'
+            'send.vis.ee',
+            'www.linux.org',
+            'tor.zilog.es',
+            'get-mullwad.com'
         ];
 
         function isWarningLink(url) {
